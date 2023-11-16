@@ -3,7 +3,7 @@ import unicodedata
 
 
 def word_tokenize(text):
-    # TODO: Buil a more powerful tokenizer with edge cases handler
+    # TODO: Build a more powerful tokenizer with edge cases handler
     words = text.split()
     words = [word.strip() for word in words]
     return words
