@@ -33,6 +33,20 @@ import re
 import concurrent.futures
 import csv
 import os
+import logging
+
+# Logging
+if not os.path.exists('logs'):
+    os.makedirs('logs')
+log_file_path = os.path.join('logs', 'fbc_scrapper.log')
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    datefmt='%Y-%m-%d %H:%M:%D',
+    handlers=[
+        logging.FileHandler(log_file_path, mode='a')
+    ]
+)
 
 
 class FBCScraper:
@@ -67,43 +81,47 @@ class FBCScraper:
             r"Finfinnee.*\(FBC\)",
             r"–"
         ]
-        if type(content) == BeautifulSoup:
-            content = content.text
-        cleaned_content = content.strip().replace("\n", " ")
-
+        cleaned_content = content.text.strip().replace("’", "h").replace("\n", " ")
         for pattern in patterns:
             cleaned_content = re.sub(pattern, "", cleaned_content)
         return cleaned_content
 
     def process_page(self, page_link):
-        page = requests.get(page_link)
         result = [""] * 5
+        try:
+            page = requests.get(page_link)
 
-        if page.status_code != 200:
-            print(f"Error {page.status_code} accessing: {page_link}")
+            if page.status_code != 200:
+                print(f"Error {page.status_code} accessing: {page_link}")
+                return result
+
+            soup = BeautifulSoup(page.content, "html.parser")
+            content = soup.find(
+                "div", class_="entry-content clearfix single-post-content")
+
+            title = soup.find("h1", class_="single-post-title")
+            date = soup.find("time", class_="post-published updated")
+            date = date.get("datetime") if date else ""
+
+            if not content or not title or not date:
+                print(f"Error processing: {page_link}")
+                return result
+
+            result[0] = self.clean(title)
+            result[1] = self.clean(content)
+            result[2] = self.category
+            result[3] = date.split("T")[0]
+            result[4] = page_link
+            logging.info(f"Processed page: {page_link}")
             return result
-
-        soup = BeautifulSoup(page.content, "html.parser")
-        content = soup.find(
-            "div", class_="entry-content clearfix single-post-content")
-
-        title = soup.find("h1", class_="single-post-title")
-        date = soup.find("time", class_="post-published updated")
-        date = date.get("datetime") if date else ""
-
-        if not content or not title or not date:
-            print(f"Error processing: {page_link}")
+        except Exception as e:
+            logging.exception(f"Error processing page: {page_link}")
+            if isinstance(e, KeyboardInterrupt):  # Print critical errors on the screen
+                print(f"Critical Error: {str(e)}")
             return result
-
-        result[0] = self.clean(title)
-        result[1] = self.clean(content)
-        result[2] = self.CATEGORY
-        result[3] = date.split("T")[0]
-        result[4] = page_link
-
-        return result
 
     def run_scraper(self):
+        headers = ["headline", "content", "category", "date", "link"]
         links = []
         with concurrent.futures.ThreadPoolExecutor() as executor:
             futures = [executor.submit(self.get_all_links, page)
@@ -170,12 +188,12 @@ class FBCScraper:
 
 # Running The Scrapper
 sources = {
-    'biiznasii': ['https://www.fanabc.com/afaanoromoo/category/business/', 113],
+    'teeknooloojii': ['https://www.fanabc.com/afaanoromoo/category/technology/', 38],
     'fayyaa': ['https://www.fanabc.com/afaanoromoo/category/health/', 81],
+    'biiznasii': ['https://www.fanabc.com/afaanoromoo/category/business/', 113],
     'idil_addunyaa': ['https://www.fanabc.com/afaanoromoo/category/worldnews/', 169],
     'ispoortii': ['https://www.fanabc.com/afaanoromoo/category/sport/', None],
     'oduu_biyya_keessaa': ['https://www.fanabc.com/afaanoromoo/category/localnews/', 2158],
-    'teeknooloojii': ['https://www.fanabc.com/afaanoromoo/category/technology/', 38],
 }
 
 for category, (base_link, max_pages) in sources.items():
