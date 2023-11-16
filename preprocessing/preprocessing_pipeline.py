@@ -1,7 +1,7 @@
-from tokenizer import AfaanOromooTokenizer
-from stopword_remover import StopwordRemover
-from stemmer import AfaanOromooStemmer
-from special_character_handler import SpecialCharacterHandler
+from .tokenizer import AfaanOromooTokenizer
+from .stopword_remover import StopwordRemover
+from .stemmer import AfaanOromooStemmer
+from .special_character_handler import SpecialCharacterHandler
 
 
 class PreprocessingPipeline:
@@ -28,7 +28,7 @@ class PreprocessingPipeline:
          - stopwrods (set)L A set of stop words. If not provided, default stopwords will be used.
         """
         self.tokenizer = AfaanOromooTokenizer()
-        self.stopword_remover = StopwordRemover(stopwords=stopword)
+        self.stopword_remover = StopwordRemover(stopwords)
         self.stememr = AfaanOromooStemmer()
         self.special_char_handler = SpecialCharacterHandler()
 
