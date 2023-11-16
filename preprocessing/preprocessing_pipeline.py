@@ -29,7 +29,7 @@ class PreprocessingPipeline:
         """
         self.tokenizer = AfaanOromooTokenizer()
         self.stopword_remover = StopwordRemover(stopwords)
-        self.stememr = AfaanOromooStemmer()
+        self.stemmer = AfaanOromooStemmer()
         self.special_char_handler = SpecialCharacterHandler()
 
     def preprocess(self, text: str) -> str:
