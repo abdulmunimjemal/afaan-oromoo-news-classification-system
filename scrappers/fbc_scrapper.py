@@ -166,3 +166,18 @@ class FBCScraper:
                 writer.writerow(headers)
                 writer.writerows(results)
             print(f"Results saved to {file_path}")
+
+
+# Running The Scrapper
+sources = {
+    'biiznasii': ['https://www.fanabc.com/afaanoromoo/category/business/', 113],
+    'fayyaa': ['https://www.fanabc.com/afaanoromoo/category/health/', 81],
+    'idil_addunyaa': ['https://www.fanabc.com/afaanoromoo/category/worldnews/', 169],
+    'ispoortii': ['https://www.fanabc.com/afaanoromoo/category/sport/', None],
+    'oduu_biyya_keessaa': ['https://www.fanabc.com/afaanoromoo/category/localnews/', 2158],
+    'teeknooloojii': ['https://www.fanabc.com/afaanoromoo/category/technology/', 38],
+}
+
+for category, (base_link, max_pages) in sources.items():
+    scraper = FBCScraper(base_link, category)
+    scraper.run_scraper(max_pages)
