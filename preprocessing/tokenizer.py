@@ -5,7 +5,7 @@ import unicodedata
 def word_tokenize(text):
     # TODO: Build a more powerful tokenizer with edge cases handler
     words = text.split()
-    words = [word.strip() for word in words]
+    words = [word.strip().lower() for word in words]
     return words
 
 
@@ -29,3 +29,20 @@ def normalize(text):
     normalized_text = unicodedata.normalize(
         'NFKD', text).encode('ASCII', 'ignore').decode('utf-8')
     return normalized_text
+
+
+class AfaanOromooTokenizer:
+    """
+    Afaan Oromoo tokenizer
+
+    Usage:
+        >>> tokenizer = AfaanOromooTokenizer()
+        >>> tokenizer.word_tokenize("Akkam Akkam")
+    """
+
+    def __init__(self):
+        pass
+
+    def tokenize(self, text):
+        text = normalize(text)
+        return word_tokenize(text)
