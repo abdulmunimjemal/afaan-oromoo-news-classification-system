@@ -39,7 +39,7 @@ class FBCScraper:
     def __init__(self, base_url, category, max_pages=None):
         self.base_url = base_url
         self.category = category
-        self.pages - self.get_pages(max_pages)
+        self.pages = self.get_pages(max_pages)
 
     def get_pages(self, max_pages):
         pages = [self.base_url]
@@ -69,7 +69,7 @@ class FBCScraper:
         ]
         if type(content) == BeautifulSoup:
             content = content.text
-        cleaned_content = cleaned_content.strip().replace("\n", " ")
+        cleaned_content = content.strip().replace("\n", " ")
 
         for pattern in patterns:
             cleaned_content = re.sub(pattern, "", cleaned_content)
@@ -110,7 +110,7 @@ class FBCScraper:
                        for page in self.pages]
             for future in concurrent.futures.as_completed(futures):
                 links += future.result()
-            print("Done")
+            print("Done: Get all Links for: ", self.category)
 
         links = list(set(links))
         results = []
@@ -120,7 +120,7 @@ class FBCScraper:
                        for link in links]
             for future in concurrent.futures.as_completed(futures):
                 results.append(future.result())
-            print("DONE")
+            print("Done: Scrapping contents for: ", self.category)
 
         # Export results to tsv file
         file_path = os.path.join("data", f"{self.category}.tsv")
@@ -179,5 +179,6 @@ sources = {
 }
 
 for category, (base_link, max_pages) in sources.items():
-    scraper = FBCScraper(base_link, category)
-    scraper.run_scraper(max_pages)
+    scraper = FBCScraper(base_link, category, max_pages)
+    scraper.run_scraper()
+    print("Done Scrapping: ", category)
