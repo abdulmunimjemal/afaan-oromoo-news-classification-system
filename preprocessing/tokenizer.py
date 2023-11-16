@@ -25,7 +25,7 @@ def normalize(text):
     # TODO: Add More replacements later
     replacements = {"kh": "k", "’": "h"}
     for original, normalized in replacements.items():
-        text = text.replace(accent, normalized)
+        text = text.replace(original, normalized)
     normalized_text = unicodedata.normalize(
         'NFKD', text).encode('ASCII', 'ignore').decode('utf-8')
     return normalized_text
