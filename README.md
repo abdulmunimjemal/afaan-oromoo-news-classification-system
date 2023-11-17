@@ -25,7 +25,6 @@ The project is organized into distinct directories, each serving a specific purp
 ┣ 📂api</br>
 ┃ ┣ 📜app.py</br>
 ┃ ┣ 📜model_loader.py</br>
-┃ ┗ 📜**init**.py</br>
 ┣ 📂data</br>
 ┣ 📂docs</br>
 ┃ ┣ 📜model_documentation.pdf</br>
@@ -36,17 +35,14 @@ The project is organized into distinct directories, each serving a specific purp
 ┃ ┃ ┣ 📜model_20231116_accuracy_0.9263.h5</br>
 ┃ ┃ ┗ 📜tokenizer.joblib</br>
 ┃ ┣ 📜train_model.ipynb</br>
-┃ ┗ 📜**init**.py</br>
 ┣ 📂preprocessing</br>
 ┃ ┣ 📜preprocessing_pipeline.py</br>
 ┃ ┣ 📜special_character_handler.py</br>
 ┃ ┣ 📜stemmer.py</br>
 ┃ ┣ 📜stopword_remover.py</br>
 ┃ ┣ 📜tokenizer.py</br>
-┃ ┗ 📜**init**.py</br>
 ┣ 📂scrapers</br>
 ┃ ┣ 📜fbc_scraper.py</br>
-┃ ┣ 📜**init**.py</br>
 ┣ 📂tests</br>
 ┃ ┣ 📜test_preprocessing.py</br>
 ┗ 📜requirements.txt</br>
@@ -137,7 +133,10 @@ This project is licensed under the Creative Commons Attribution-NonCommercial-Sh
 
 ## Authors
 
-- Abdulmunim Jundurahman Jemal
+- [Abdulmunim Jundurahman](https://github.com/abdulmunimjemal)
+
+## Contributors
+- [Ishak Sebsib](https://github.com/ishaksebsib)
 
 ## FAQ
 
