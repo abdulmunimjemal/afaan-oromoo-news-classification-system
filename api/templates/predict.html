@@ -1,21 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Prediction</title>
-</head>
-<body>
-    <h1>Text Prediction</h1>
-    <form id="predict-form" method="post" action="{{ url_for('index') }}">
-        <label for="text-input">Enter Text:</label>
-        <input type="text" id="text-input" name="text" required>
-        <button type="submit">Predict</button>
-    </form>
-    {% if prediction %}
-        <div id="prediction-result">Prediction: {{ prediction }}</div>
-    {% elif error %}
-        <div id="prediction-result">Error: {{ error }}</div>
-    {% endif %}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Afaan Oromoo News Classifier</title>
+  </head>
+  <body class="bg-gray-900">
+    <section class="py-14 max-w-screen-xl mx-auto mt-32">
+      <div
+        class="relative overflow-hidden mx-4 px-4 py-14 rounded-2xl bg-gray-700 md:px-8 md:mx-8"
+      >
+        <div class="relative z-10 max-w-xl mx-auto sm:text-center">
+          <div class="space-y-3">
+            {% if prediction %}
+            <div
+              class="my-4 sm:mx-16 text-center text-sm md:text-xl lg:text-2xl text-white bg-gray-900 p-4 border rounded-lg border-red-300 font-bold"
+            >
+              <div id="prediction-result">
+                <span class="text-transform: uppercase">
+                  {{ prediction }}
+                </span>
+              </div>
+            </div>
+            {% elif error %}
+
+            <div
+              class="my-4 sm:mx-16 text-center text-sm md:text-xl lg:text-2xl text-white bg-gray-900 p-4 border rounded-lg border-red-300 font-bold"
+            >
+              <div id="prediction-result">Error: {{ error }}</div>
+            </div>
+
+            {% else %}
+
+            <h3 class="text-3xl text-white font-bold">
+              Afaan Oromoo News Classifier
+            </h3>
+            <p class="text-blue-100 leading-relaxed">
+              Empowering Afaan Oromoo speakers with a machine learning-driven
+              news classification system. Explore and categorize news articles
+              effortlessly,
+            </p>
+
+            {% endif %}
+          </div>
+          <div class="mt-6">
+            <form
+              class="flex flex-col items-center justify-center rounded-lg p-1 sm:max-w-md sm:mx-auto"
+              method="post"
+              action="{{ url_for('index') }}"
+            >
+              <textarea
+                id="message"
+                name="text"
+                required
+                rows="4"
+                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-900 rounded-lg border border-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:border-gray-900 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Enter your Afaan Oromoo news article here...."
+              ></textarea>
+              <button
+                class="mt-6 p-2 px-8 rounded-lg font-medium text-white bg-gray-900 hover:bg-gray-500 active:bg-gray-700 duration-150 outline-none shadow-md focus:shadow-none sm:px-4"
+              >
+                Predict Category
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

@@ -15,8 +15,10 @@ def index():
             prediction = predict(text, model, tokenizer, label_encoder)
             return render_template('predict.html', prediction=prediction)
         except ValueError as ve:
+            # bad request.
             return render_template('predict.html', error=str(ve)), 400
         except Exception as e:
+            # Server Error
             return render_template('predict.html', error=str(e)), 500
     else:
         return render_template('predict.html')
@@ -40,4 +42,4 @@ def predict_host():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
