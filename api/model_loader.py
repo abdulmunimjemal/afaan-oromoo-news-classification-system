@@ -8,12 +8,13 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
 from preprocessing import preprocessing_pipeline
 
-main_path = 'models/trained_models/'
+current_dir = os.getcwd()
+main_path = '../models/trained_models/'
 model = 'model_20231116_accuracy_0.9263.h5'
 tokenizer = 'tokenizer.joblib'
 label_encoder = 'label_encoder.joblib'
 
-model_path, tokenizer_path, label_encoder_path = os.path.join(main_path, model), os.path.join(
+model_path, tokenizer_path, label_encoder_path = os.path.join(current_dir,main_path, model), os.path.join(
     main_path, tokenizer), os.path.join(main_path, label_encoder)
 
 

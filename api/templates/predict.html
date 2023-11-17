@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Prediction</title>
+</head>
+<body>
+    <h1>Text Prediction</h1>
+    <form id="predict-form" method="post" action="{{ url_for('index') }}">
+        <label for="text-input">Enter Text:</label>
+        <input type="text" id="text-input" name="text" required>
+        <button type="submit">Predict</button>
+    </form>
+    {% if prediction %}
+        <div id="prediction-result">Prediction: {{ prediction }}</div>
+    {% elif error %}
+        <div id="prediction-result">Error: {{ error }}</div>
+    {% endif %}
+</body>
+</html>
