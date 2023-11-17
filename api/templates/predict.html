@@ -13,26 +13,6 @@
       >
         <div class="relative z-10 max-w-xl mx-auto sm:text-center">
           <div class="space-y-3">
-            {% if prediction %}
-            <div
-              class="my-4 sm:mx-16 text-center text-sm md:text-xl lg:text-2xl text-white bg-gray-900 p-4 border rounded-lg border-red-300 font-bold"
-            >
-              <div id="prediction-result">
-                <span class="text-transform: uppercase">
-                  {{ prediction }}
-                </span>
-              </div>
-            </div>
-            {% elif error %}
-
-            <div
-              class="my-4 sm:mx-16 text-center text-sm md:text-xl lg:text-2xl text-white bg-gray-900 p-4 border rounded-lg border-red-300 font-bold"
-            >
-              <div id="prediction-result">Error: {{ error }}</div>
-            </div>
-
-            {% else %}
-
             <h3 class="text-3xl text-white font-bold">
               Afaan Oromoo News Classifier
             </h3>
@@ -41,8 +21,6 @@
               news classification system. Explore and categorize news articles
               effortlessly,
             </p>
-
-            {% endif %}
           </div>
           <div class="mt-6">
             <form
@@ -64,6 +42,23 @@
                 Predict Category
               </button>
             </form>
+            {% if prediction %}
+            <div
+              class="my-4 sm:mx-16 text-center text-xs md:text-lg lg:text-xl text-white bg-gray-900 p-4 border rounded-lg border-red-300 font-bold"
+            >
+              <div id="prediction-result">
+                <span class="text-transform: uppercase">
+                  {{ prediction }}
+                </span>
+              </div>
+            </div>
+            {% elif error %}
+            <div
+              class="my-4 sm:mx-16 text-center text-xs md:text-lg lg:text-xl text-white bg-gray-900 p-4 border rounded-lg border-red-300 font-bold"
+            >
+              <div id="prediction-result">Error: {{ error }}</div>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
