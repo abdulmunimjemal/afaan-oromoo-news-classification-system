@@ -10,7 +10,7 @@ def predict_host():
     try:
         data = request.get_json()
         if 'text' not in data:
-            raise ValueError("Missing 'text' in teh request body")
+            raise ValueError("Missing 'text' in the request body")
         text = data['text']
         prediction = predict(text, model, tokenizer, label_encoder)
         return jsonify({'success': True, 'prediction': prediction})
