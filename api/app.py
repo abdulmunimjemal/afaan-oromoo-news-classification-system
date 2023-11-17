@@ -1,11 +1,30 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from model_loader import loader, predict
 
 app = Flask(__name__)
 model, tokenizer, label_encoder = loader()
 
+@app.route('/', methods=['GET','POST'])
+def index():
+    if request.method == 'POST':
+        try:
+            data = request.form
+            if 'text' not in data:
+                raise ValueError("Missing 'text' in the request body")
+            text = data['text']
+            prediction = predict(text, model, tokenizer, label_encoder)
+            return render_template('predict.html', prediction=prediction)
+        except ValueError as ve:
+            # bad request.
+            return render_template('predict.html', error=str(ve)), 400
+        except Exception as e:
+            # Server Error
+            return render_template('predict.html', error=str(e)), 500
+    else:
+        return render_template('predict.html')
 
-@app.route('/predict', methods=['POST'])
+# api version 
+@app.route('/api/predict', methods=['POST'])
 def predict_host():
     try:
         data = request.get_json()
