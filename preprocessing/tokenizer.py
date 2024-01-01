@@ -23,7 +23,9 @@ def tokenize_with_punctuation(text):
 def normalize(text):
     # Handle accents and variations
     # TODO: Add More replacements later
-    replacements = {"kh": "k", "’": "h"}
+    replacements = {"kh": "k",
+                    "’": "h",
+                    }
     for original, normalized in replacements.items():
         text = text.replace(original, normalized)
     text = re.sub(r"\b'\b", "h", text)
