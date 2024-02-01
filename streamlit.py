@@ -28,6 +28,7 @@ def predict_text(text):
 
 def main():
     st.title('Afaan Oromoo News Category Prediction')
+    st.markdown('By: __Abdulmunim Jundurahman__ ( github.com/abdulmunimjemal )')
 
     text_input = st.text_area('Enter your news text:', '')
 
