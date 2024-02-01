@@ -32,7 +32,7 @@ def loader(model_path=model_path, tokenizer_path=tokenizer_path, label_encoder_p
     return loaded_model, loaded_tokenizer, loaded_label_encoder
 
 
-def predict(text, loaded_model, loaded_tokenizer, loaded_label_encoder):
+def predict(text, loaded_model, loaded_tokenizer, loaded_label_encoder, confidence=False):
     # Preprocess the text
     preprocessor = preprocessing_pipeline.PreprocessingPipeline()
     preprocessed_text = preprocessor.preprocess(text)
@@ -51,4 +51,4 @@ def predict(text, loaded_model, loaded_tokenizer, loaded_label_encoder):
     predicted_category = loaded_label_encoder.inverse_transform(
         [[predicted_category_index]])[0]
 
-    return predicted_category
+    return (predicted_category, predictions[0][predicted_category_index]) if confidence else predicted_category
