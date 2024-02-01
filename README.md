@@ -1,5 +1,7 @@
 ﻿# AFAAN OROMOO NEWS CLASSIFICATION SYSTEM
 
+Live Preview: [Click here](https://afaan-oromoo-news-classification-system.streamlit.app/)
+
 ## Overview
 
 AFAAN OROMOO NEWS CLASSIFICATION SYSTEM is a machine learning project designed to classify news articles written in Afaan Oromoo, the Oromo language. The primary goal of this project is to leverage natural language processing (NLP) techniques to automatically categorize news content into various predefined categories.
